@@ -527,6 +527,7 @@
             </select><br><br>
 
             <a onclick="calcolaZavorra()" class="button">Calcola</a>
+            
 
             <p id="risultatoZavorra" style="font-size: 20px; font-weight: bold; margin-top: 20px;"></p>
 
@@ -535,8 +536,39 @@
         Aiutami a raffinare il mio calcolatore, calcola la tua zavorra e lascia un feedback compilando il questionario.<br><br>
         <a href="https://forms.gle/kXnpnD8CLgBpGFF18" class="button">Compila il questionario</a><br><br>
 
-        <a href="Progetti.html" class="button">Torna indietro</a>
+        <a href="Progetti.html" class="button">Torna indietro</a><br><br><br>
+        Calcolatore v 1.0.0 
     </section>
+
+    <footer>
+        <p>&copy; Gennaio 2026 | Tutti i diritti riservati</p>
+        <p style="font-size: 10px; margin: 5px 0 0 0; opacity: 0.8;">
+            Questo sito non ti chiederà i
+            <a href="Legacy.html" style="color: white; text-decoration: underline;">biscottini</a>
+        </p>
+    </footer>
+
+    <div id="myModal" class="modal" onclick="closeModal()">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="img01">
+    </div>
+
+    <div id="secretMenu" class="modal-overlay">
+        <div class="menu-box">
+            <h3>Menu Rapido</h3>
+            <p>Scegli una destinazione:</p>
+
+            <button class="menu-btn"
+                onclick="window.location.href='https://federico-bianconi.github.io/Profilo_Digitale/index.html'">Profilo
+                Digitale</button>
+            <button class="menu-btn"
+                onclick="window.location.href='https://federico-bianconi.github.io/Spazio_Personale/'">Spazio
+                Personale</button>
+            <button class="menu-btn close-btn" onclick="closeSecretMenu()">Chiudi</button>
+        </div>
+    </div>
+
+    <div style="height: 50px;"></div>
 
     <!-- SCRIPT -->
     <script>
@@ -836,3 +868,4 @@
 </body>
 
 </html>
+

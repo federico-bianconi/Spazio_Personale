@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Federico Bianconi | Spazio Personale</title>
+    <style>
+        /* --- PAGINA MEDIA --- */
+        /* --- STILI GLOBALI --- */
+        /* --- 1. FRECCIA SCORRI (Definitiva) --- */
+        #scrollArrow {
+            display: none;
+            /* Gestito dallo script */
+            position: fixed;
+            bottom: 85px;
+            /* Altezza base Mobile */
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+        }
+
+        .circle-content {
+            width: 56px;
+            height: 56px;
+            background-color: #0073e6;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0px 4px 12px rgba(0, 115, 230, 0.4);
+            border: none;
+        }
+
+        .arrow-icon {
+            font-size: 24px;
+            line-height: 1;
+            font-weight: bold;
+        }
+
+        .arrow-text-inside {
+            font-size: 9px;
+            font-weight: normal;
+            text-transform: none;
+            margin-top: 3px;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            40% {
+                transform: translateX(-50%) translateY(-15px);
+            }
+
+            60% {
+                transform: translateX(-50%) translateY(-7px);
+            }
+        }
+
+        @media (min-width: 601px) {
+            #scrollArrow {
+                bottom: 135px;
+            }
+        }
+
+        /* --- 2. HEADER --- */
+        header {
+            background: linear-gradient(180deg, #0073e6 0%, #00aaff 100%);
+            color: white;
+            padding: 0 20px;
+            font-size: 24px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            height: 160px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-y: auto;
+            padding-bottom: 50px;
+        }
+
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-right: 15px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .profile-pic:hover {
+            opacity: 0.9;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin: 0 auto;
+        }
+
+        /* --- 3. NAVIGAZIONE --- */
+        nav {
+            display: flex;
+            gap: 20px;
+            align-items: flex-end;
+            height: 100%;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 8px 16px;
+            border: 2px solid white;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: background 0.3s, transform 0.2s;
+            margin-bottom: 10px;
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        /* --- 4. CONTENUTO --- */
+        section {
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+            text-align: center;
+        }
+
+        section:nth-of-type(1) {
+            margin-bottom: 20px;
+        }
+
+        .testo-bio {
+            text-align: center;
+            line-height: 1.8;
+            font-size: 17px;
+            color: #000000;
+            margin-bottom: 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* --- STILI PULSANTI E BOX ARTICOLI --- */
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #0073e6;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 12px;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .button:hover {
+            transform: scale(1.05);
+            background-color: #004499;
+            cursor: pointer;
+        }
+
+        .box-articolo {
+            box-sizing: border-box;
+            border: 2px solid #000000;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px auto;
+            width: 100%;
+            max-width: 400px;
+            background-color: #dfdbdb;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .box-articolo:hover {
+            background-color: #9acbf7;
+            cursor: pointer;
+        }
+
+        /* --- 5. FOOTER --- */
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            z-index: 1000;
+        }
+
+        /* --- 6. MODAL FOTO (ZOOM) --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .modal-content {
+            display: block;
+            max-width: 90%;
+            max-height: 90%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid white;
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* --- 7. MENU SEGRETO --- */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            z-index: 20000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .menu-box {
+            background-color: #dfdbdb;
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid #000;
+            text-align: center;
+            width: 300px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .menu-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #0073e6;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .menu-btn:hover {
+            background-color: #005bb5;
+        }
+
+        .close-btn {
+            background-color: #555;
+            margin-top: 20px;
+        }
+
+        /* --- MEDIA QUERY MOBILE --- */
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                align-items: stretch;
+                height: 300px;
+                padding: 10px 16px;
+                text-align: center;
+            }
+
+            .header-content {
+                flex-direction: column;
+                align-items: center;
+                gap: 4px;
+                margin-bottom: 4px;
+            }
+
+            .profile-pic {
+                width: 160px;
+                height: 160px;
+                margin-top: 12px;
+                margin-bottom: 4px;
+            }
+
+            h1 {
+                font-size: 30px;
+                margin: 4px 0;
+            }
+
+            p {
+                font-size: 18px;
+                margin: 0 0 8px 0;
+            }
+
+            header .header-content p {
+                margin: 0 0 8px 0;
+            }
+
+            .button {
+                margin-top: 10px;
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+
+            .button:hover {
+                transform: none !important;
+                background-color: #0073e6 !important;
+            }
+
+            .fixed-buttons {
+                bottom: 60px;
+                flex-wrap: wrap;
+                padding: 0 10px;
+            }
+
+            nav {
+                display: flex;
+                justify-content: flex-end;
+                gap: 10px;
+                margin-top: auto;
+                margin-bottom: 8px;
+                padding-right: 10px;
+            }
+
+            nav a {
+                font-size: 14px;
+                padding: 6px 12px;
+                margin: 0;
+            }
+
+            nav a:hover {
+                transform: none !important;
+                background-color: rgba(255, 255, 255, 0.1) !important;
+            }
+
+            section {
+                padding: 20px 10px;
+                /* 20px sopra/sotto, 10px lati */
+            }
+
+            section:first-of-type {
+                padding-top: 30px !important;
+            }
+
+            section:nth-of-type(1) {
+                margin-bottom: 0px;
+            }
+
+            /* Regola l'altezza del titolo su Mobile */
+            section h2 {
+                margin-top: 0 !important;
+                /* Toglie lo spazio "casuale" del browser */
+                padding-top: 5px;
+                /* <--- MODIFICA QUESTO NUMERO per alzare/abbassare */
+                margin-bottom: 30px;
+                /* Spazio sotto il titolo */
+            }
+
+            .testo-bio {
+                padding: 0 10px;
+            }
+
+            .box-articolo:hover {
+                background-color: #dfdbdb !important;
+            }
+
+            footer {
+                padding: 10px 0;
+                font-size: 10px;
+            }
+
+            footer p {
+                margin: 0;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <style>
+        /* Rimuove le freccette dagli input numerici */
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+
+    <header>
+        <div class="header-content">
+            <img src="Io2.png" alt="Foto Profilo" class="profile-pic" onclick="openModal(this)">
+            <div>
+                <h1 onclick="openSecretMenu()" style="cursor: default; color: white;">FEDERICO BIANCONI</h1>
+                <p>Ingegnere Navale</p>
+            </div>
+        </div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="Io.html">Su di me</a>
+            <a href="Media.html">Media</a>
+            <a href="Progetti.html">Progetti</a>
+        </nav>
+    </header>
+
+    <!-- CALCOLO ZAVORRA -->
+    <section>
+        <h2 style="margin-bottom: 30px;">CALCOLO DELLA ZAVORRA</h2>
+
+        <a href="Zavorrata_empirica.pdf" class="button">Leggi la teoria</a><br><br>
+
+        <div id="calcolatoreZavorra" style="max-width: 500px; margin: 0 auto; text-align: center;">
+
+            <h3>Inserisci i tuoi dati</h3>
+
+            <label>Peso persona (kg):</label>
+            <input type="number" id="peso" step="0.1"><br><br>
+
+            <label>Altezza persona (cm):</label>
+            <input type="number" id="altezza" step="0.1"><br><br>
+
+            <label>Età:</label>
+            <input type="number" id="eta" step="1"><br><br>
+
+            <label>Sesso:</label>
+            <select id="sesso">
+                <option value="1">Maschio</option>
+                <option value="0">Femmina</option>
+            </select><br><br>
+
+            <label>Profilo:</label>
+            <select id="profilo">
+                <option value="0">Non sportivo</option>
+                <option value="1">Sportivo</option>
+                <option value="2">Atleta</option>
+            </select><br><br>
+
+            <label>Tipo di muta:</label>
+            <select id="muta" onchange="toggleTipoMuta()">
+                <option value="umida">Muta umida</option>
+                <option value="semistagna">Muta semistagna</option>
+            </select><br><br>
+
+            <div id="pezziMutaContainer">
+                <label>La tua muta è pezzo unico o due pezzi?</label>
+                <select id="pezziMuta" onchange="toggleSpessoreMuta()">
+                    <option value="uno">1</option>
+                    <option value="due">2</option>
+                </select><br><br>
+            </div>
+
+            <div id="spessoreSingoloBox">
+                <label>Spessore della muta (mm):</label>
+                <input type="number" id="spessore" step="0.1"><br><br>
+            </div>
+
+            <div id="spessoreDoppioBox" style="display:none;">
+                <label>Spessore della giacca (mm):</label>
+                <input type="number" id="spessoreArti" step="0.1"><br><br>
+
+                <label>Spessore della salopet (mm):</label>
+                <input type="number" id="spessoreTorso" step="0.1"><br><br>
+            </div>
+
+            <label>Conosci la densità della tua muta?</label>
+            <select id="conosciDensita" onchange="toggleDensitaMuta()">
+                <option value="no">No</option>
+                <option value="si">Sì</option>
+            </select><br>
+
+            <div id="densitaMutaBox" style="display: none; margin-top: 15px;">
+                <label>Specifica la densità della muta (kg/m³):</label>
+                <input type="number" id="densitaMutaInput" step="1">
+            </div><br>
+
+            <label>Tipo di bombola:</label>
+            <select id="bombola">
+                <option value="steel-18">Acciaio 15 L</option>
+                <option value="steel-14">Acciaio 12 L</option>
+                <option value="steel-11">Acciaio 10 L</option>
+                <option value="alu-19">Alluminio 15 L</option>
+                <option value="alu-15">Alluminio 12 L</option>
+                <option value="alu-12">Alluminio 10 L</option>
+            </select><br><br>
+
+            <label>Tipo di acqua:</label>
+            <select id="acqua">
+                <option value="1025">Acqua di mare</option>
+                <option value="1000">Acqua dolce</option>
+            </select><br><br>
+
+            <a onclick="calcolaZavorra()" class="button">Calcola</a>
+
+            <p id="risultatoZavorra" style="font-size: 20px; font-weight: bold; margin-top: 20px;"></p>
+
+        </div><br><br>
+
+        Aiutami a raffinare il mio calcolatore, calcola la tua zavorra e lascia un feedback compilando il questionario.<br><br>
+        <a href="https://forms.gle/kXnpnD8CLgBpGFF18" class="button">Compila il questionario</a><br><br>
+
+        <a href="Progetti.html" class="button">Torna indietro</a>
+    </section>
+
+    <!-- SCRIPT -->
+    <script>
+
+        function openZavorraPage() {
+            document.getElementById("mainSection").style.display = "none";
+            document.getElementById("zavorraPage").style.display = "block";
+            window.scrollTo(0, 0);
+        }
+
+        function toggleDensitaMuta() {
+            let scelta = document.getElementById("conosciDensita").value;
+            document.getElementById("densitaMutaBox").style.display = (scelta === "si") ? "block" : "none";
+        }
+
+        function toggleTipoMuta() {
+            let tipoMuta = document.getElementById("muta").value;
+            let pezziContainer = document.getElementById("pezziMutaContainer");
+            let pezziMuta = document.getElementById("pezziMuta");
+            let boxSingolo = document.getElementById("spessoreSingoloBox");
+            let boxDoppio = document.getElementById("spessoreDoppioBox");
+
+            if (tipoMuta === "semistagna") {
+                pezziContainer.style.display = "none";
+                pezziMuta.value = "uno";
+                boxSingolo.style.display = "block";
+                boxDoppio.style.display = "none";
+            } else {
+                pezziContainer.style.display = "block";
+                toggleSpessoreMuta();
+            }
+        }
+
+        function toggleSpessoreMuta() {
+            let pezzi = document.getElementById("pezziMuta").value;
+            let tipoMuta = document.getElementById("muta").value;
+            let boxSingolo = document.getElementById("spessoreSingoloBox");
+            let boxDoppio = document.getElementById("spessoreDoppioBox");
+
+            if (tipoMuta === "semistagna") {
+                boxSingolo.style.display = "block";
+                boxDoppio.style.display = "none";
+                return;
+            }
+
+            if (pezzi === "due") {
+                boxSingolo.style.display = "none";
+                boxDoppio.style.display = "block";
+            } else {
+                boxSingolo.style.display = "block";
+                boxDoppio.style.display = "none";
+            }
+        }
+
+        window.onload = function () {
+            toggleTipoMuta();
+        };
+
+        /* -------------------------
+           FUNZIONI FISICHE
+        ------------------------- */
+
+        let rho_corpoideale = 1000;
+
+        function calcolaBF(BMI, eta, sesso) {
+            return (1.20 * BMI) + (0.23 * eta) - (10.8 * sesso) - 5.4;
+        }
+
+        function offsetProfilo(sesso, profilo) {
+            if (profilo === 0) return 0;
+            if (profilo === 1) return sesso === 1 ? 5 : 3;
+            if (profilo === 2) return sesso === 1 ? 10 : 8;
+        }
+
+        function densitaPersona(BF, sesso, profilo) {
+            return rho_corpoideale - BF + offsetProfilo(sesso, profilo);
+        }
+
+        /* -------------------------
+           DATABASE BOMBOLA
+        ------------------------- */
+
+        const bombole = {
+            "steel-11": { massa: 11, litri: 10, rho: 7800 },
+            "steel-14": { massa: 14, litri: 12, rho: 7800 },
+            "steel-18": { massa: 18, litri: 15, rho: 7800 },
+            "alu-12": { massa: 12, litri: 10, rho: 2700 },
+            "alu-15": { massa: 15, litri: 12, rho: 2700 },
+            "alu-19": { massa: 19, litri: 15, rho: 2700 }
+        };
+
+        function calcolaZavorra() {
+
+            /* -------------------------
+               INPUT UTENTE
+            ------------------------- */
+
+            let Mpers = parseFloat(document.getElementById("peso").value);      // kg
+            let h_cm = parseFloat(document.getElementById("altezza").value);    // cm
+            let eta = parseFloat(document.getElementById("eta").value);
+            let sesso = parseInt(document.getElementById("sesso").value);
+            let profilo = parseInt(document.getElementById("profilo").value);
+
+            let t_mm = parseFloat(document.getElementById("spessore").value);   // mm
+            let rho_a = parseFloat(document.getElementById("acqua").value);     // kg/m^3
+
+            let rho_piombo = 11300;
+
+            /* -------------------------
+               CONVERSIONI
+            ------------------------- */
+
+            let h = h_cm / 100;      // m
+            let t = t_mm / 1000;     // m
+
+            /* -------------------------
+               PERSONA
+            ------------------------- */
+
+            let BMI = Mpers / (h * h);
+            let BF = calcolaBF(BMI, eta, sesso);
+            let rho_pers = densitaPersona(BF, sesso, profilo);
+
+            let Vpers = Mpers / rho_pers;
+
+            /* -------------------------
+            MUTA (MODELLO A 3 CILINDRI)
+            ------------------------- */
+
+            let tipoMuta = document.getElementById("muta").value;
+            let conosci = document.getElementById("conosciDensita").value;
+            let pezziMuta = document.getElementById("pezziMuta").value;
+
+            let tArti;
+            let tTorso;
+
+
+            if (pezziMuta === "due") {
+                tgiacca = parseFloat(document.getElementById("spessoreArti").value) / 1000;
+                tsalopet = parseFloat(document.getElementById("spessoreTorso").value) / 1000;
+            } else {
+                t = parseFloat(document.getElementById("spessore").value) / 1000;
+            }
+
+            let rho_muta;
+
+            if (conosci === "si") {
+                rho_muta = parseFloat(document.getElementById("densitaMutaInput").value);
+            } else {
+                if (tipoMuta === "umida") {
+                    rho_muta = 400;
+                } else if (tipoMuta === "semistagna") {
+                    rho_muta = 600;
+                }
+            }
+            // volumi corporei (proporzioni antropometriche)
+            let Vtorso = 0.5 * Vpers;
+            let Vbraccio = (0.1 * Vpers) / 2;
+            let Vgamba = (0.4 * Vpers) / 2;
+
+            // altezze segmenti
+            let h_torso = 0.30 * h;
+            let h_braccio = 0.45 * h;
+            let h_gamba = 0.53 * h;
+
+            // raggi dei cilindri
+            let r_torso = Math.sqrt(Vtorso / (Math.PI * h_torso));
+            let r_braccio = Math.sqrt(Vbraccio / (Math.PI * h_braccio));
+            let r_gamba = Math.sqrt(Vgamba / (Math.PI * h_gamba));
+
+            // superfici laterali
+            let A_torso = 2 * Math.PI * r_torso * h_torso;
+            let A_braccio = 2 * Math.PI * r_braccio * h_braccio;
+            let A_gamba = 2 * Math.PI * r_gamba * h_gamba;
+
+            // volume totale muta (somma superfici * spessore)
+            let Vmuta;
+
+            if (pezziMuta === "due") {
+                Vmuta = (A_torso * (tgiacca + tsalopet)) + (2 * A_braccio * tgiacca) + (2 * A_gamba * tsalopet);
+            } else {
+                Vmuta = (A_torso + 2 * A_braccio + 2 * A_gamba) * t;
+            }
+
+            // massa muta
+            let Mmuta = Vmuta * rho_muta;
+
+
+            /* -------------------------
+               BOMBOLA (CORRETTO)
+            ------------------------- */
+
+            let bombSel = document.getElementById("bombola").value;
+            let bomb = bombole[bombSel];
+
+            let Mbomb_scarica = bomb.massa;
+            let litri = bomb.litri;
+            let rho_bomb = bomb.rho;
+
+            // volume interno (aria)
+            let Vint = litri / 1000;
+
+            // volume materiale bombola
+            let Vacc = Mbomb_scarica / rho_bomb;
+
+            // volume totale spostato
+            let Vbomb = Vint + Vacc;
+
+            // massa aria (serve SOLO per peso, non per volume)
+            let Pbomb = 30000000;
+            let R = 287;
+            let T = 303;
+
+            let Maria = (Vint * Pbomb) / (R * T);
+
+            let Mbomb = Mbomb_scarica + Maria;
+
+            /* -------------------------
+               ATTREZZATURA
+            ------------------------- */
+
+            let massaGAV = 3.5;
+            let rho_gav = 1000;
+
+            let massaOctopus = 1.8;
+            let rho_octopus = 940;
+
+            let massaPinne = 2.2;
+            let rho_pinne = 1040;
+
+            let Mattr = massaGAV + massaOctopus + massaPinne;
+
+            let Vattr = (massaGAV / rho_gav) +
+                (massaOctopus / rho_octopus) +
+                (massaPinne / rho_pinne);
+
+            /* -------------------------
+               EQUILIBRIO
+            ------------------------- */
+
+            let num = rho_a * (Vpers + Vmuta + Vbomb + Vattr)
+                - (Mpers + Mmuta + Mbomb + Mattr);
+
+            let den = 1 - (rho_a / rho_piombo);
+
+            let Mp = num / den;
+
+            /* -------------------------
+               OUTPUT
+            ------------------------- */
+
+            function arrotondaZavorra(valore, assetto) {
+                const x = Math.floor(valore);
+                const dec = valore - x;
+
+                if (dec < 0.25) {
+                    return x;
+                }
+
+                if (dec >= 0.25 && dec < 0.50) {
+                    return assetto === "positivo" ? x + 0.5 : x;
+                }
+
+                if (dec >= 0.50 && dec < 0.75) {
+                    return x + 0.5;
+                }
+
+                return assetto === "positivo" ? x + 1 : x;
+            }
+
+            let interpretazione = "";
+            let conclusione = "Prova il valore consigliato, se lo necessiti modifica partendo da questo valore.";
+            let assetto = "";
+
+            if (rho_pers > 995) {
+                assetto = "negativo";
+                interpretazione = "Tendi ad essere negativo: la tua densità corporea è relativamente alta e potresti richiedere poca zavorra.";
+            } else if (rho_pers < 975) {
+                assetto = "positivo";
+                interpretazione = "Tendi ad essere positivo: la tua densità corporea è relativamente bassa e potresti richiedere più zavorra.";
+            } else {
+                assetto = "neutro";
+                interpretazione = "Tendi ad essere neutro: la tua corporatura e l'attrezzatura portano a una richiesta di zavorra intermedia.";
+            }
+
+            let Mp_approx = arrotondaZavorra(Mp, assetto);
+
+            document.getElementById("risultatoZavorra").innerHTML =
+                "Zavorra calcolata: " + Mp.toFixed(2) + " kg<br><br>" +
+                "<span style='font-size:16px; font-weight:normal;'>" + interpretazione + "</span><br><br>" +
+                "Zavorra consigliata: " + Mp_approx.toFixed(1) + " kg<br><br>" +
+                "<span style='font-size:16px; font-weight:normal;'>" + conclusione + "</span>";
+        }
+
+    </script>
+
+</body>
+
+</html>

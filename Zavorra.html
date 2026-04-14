@@ -443,41 +443,41 @@
     <!-- CALCOLO ZAVORRA -->
     <section>
         <h2 style="margin-bottom: 30px;">CALCOLO DELLA ZAVORRA</h2>
-
+    
         <a href="Zavorrata_empirica.pdf" class="button">Leggi la teoria</a><br><br>
-
+    
         <div id="calcolatoreZavorra" style="max-width: 500px; margin: 0 auto; text-align: center;">
-
+    
             <h3>Inserisci i tuoi dati</h3>
-
+    
             <label>Peso persona (kg):</label>
             <input type="number" id="peso" step="0.1"><br><br>
-
+    
             <label>Altezza persona (cm):</label>
             <input type="number" id="altezza" step="0.1"><br><br>
-
+    
             <label>Età:</label>
             <input type="number" id="eta" step="1"><br><br>
-
+    
             <label>Sesso:</label>
             <select id="sesso">
                 <option value="1">Maschio</option>
                 <option value="0">Femmina</option>
             </select><br><br>
-
+    
             <label>Profilo:</label>
             <select id="profilo">
                 <option value="0">Non sportivo</option>
                 <option value="1">Sportivo</option>
                 <option value="2">Atleta</option>
             </select><br><br>
-
+    
             <label>Tipo di muta:</label>
             <select id="muta" onchange="toggleTipoMuta()">
                 <option value="umida">Muta umida</option>
                 <option value="semistagna">Muta semistagna</option>
             </select><br><br>
-
+    
             <div id="pezziMutaContainer">
                 <label>La tua muta è pezzo unico o due pezzi?</label>
                 <select id="pezziMuta" onchange="toggleSpessoreMuta()">
@@ -485,31 +485,55 @@
                     <option value="due">2</option>
                 </select><br><br>
             </div>
-
+    
+            <div id="tipoSpessoreSemistagnaContainer" style="display:none;">
+                <label>Lo spessore è omogeneo o varia?</label>
+                <select id="tipoSpessoreSemistagna" onchange="toggleSpessoreSemistagna()">
+                    <option value="omogeneo">Spessore omogeneo</option>
+                    <option value="non_omogeneo">Spessore non omogeneo</option>
+                </select><br><br>
+            </div>
+    
             <div id="spessoreSingoloBox">
                 <label>Spessore della muta (mm):</label>
                 <input type="number" id="spessore" step="0.1"><br><br>
             </div>
-
+    
             <div id="spessoreDoppioBox" style="display:none;">
                 <label>Spessore della giacca (mm):</label>
                 <input type="number" id="spessoreArti" step="0.1"><br><br>
-
+    
                 <label>Spessore della salopet (mm):</label>
                 <input type="number" id="spessoreTorso" step="0.1"><br><br>
             </div>
-
+    
+            <div id="spessoreSemistagnaNonOmogeneoBox" style="display:none;">
+                <p style="font-size: 14px; color: #555; margin: 0px 0 10px 0;">
+                    Se non conosci i vari spessori, seleziona "spessore omogeneo" e inserisci un valore medio come unico spessore.
+                  </p>
+                  
+            
+                <label>Spessore torso (mm):</label>
+                <input type="number" id="spessoreTorsoSemi" step="0.1"><br><br>
+            
+                <label>Spessore braccia (mm):</label>
+                <input type="number" id="spessoreBracciaSemi" step="0.1"><br><br>
+            
+                <label>Spessore gambe (mm):</label>
+                <input type="number" id="spessoreGambeSemi" step="0.1"><br><br>
+            </div>
+    
             <label>Conosci la densità della tua muta?</label>
             <select id="conosciDensita" onchange="toggleDensitaMuta()">
                 <option value="no">No</option>
                 <option value="si">Sì</option>
             </select><br>
-
+    
             <div id="densitaMutaBox" style="display: none; margin-top: 15px;">
                 <label>Specifica la densità della muta (kg/m³):</label>
                 <input type="number" id="densitaMutaInput" step="1">
             </div><br>
-
+    
             <label>Tipo di bombola:</label>
             <select id="bombola">
                 <option value="steel-18">Acciaio 15 L</option>
@@ -519,25 +543,34 @@
                 <option value="alu-15">Alluminio 12 L</option>
                 <option value="alu-12">Alluminio 10 L</option>
             </select><br><br>
-
+    
             <label>Tipo di acqua:</label>
             <select id="acqua">
                 <option value="1025">Acqua di mare</option>
                 <option value="1000">Acqua dolce</option>
             </select><br><br>
-
+    
             <a onclick="calcolaZavorra()" class="button">Calcola</a>
-            
-
+    
             <p id="risultatoZavorra" style="font-size: 20px; font-weight: bold; margin-top: 20px;"></p>
-
+    
         </div><br><br>
 
-        Aiutami a raffinare il mio calcolatore, calcola la tua zavorra e lascia un feedback compilando il questionario.<br><br>
-        <a href="https://forms.gle/kXnpnD8CLgBpGFF18" class="button">Compila il questionario</a><br><br>
-
+        <p style="font-size: 16px; color: rgb(0, 0, 0); margin: 0px 0 10px 0;">
+            Aiutami a raffinare il mio calcolatore.<br>
+            Calcola la tua zavorra e lascia un feedback compilando il questionario.<br>
+          </p>
+    
+        <a href="https://forms.gle/kXnpnD8CLgBpGFF18" class="button" style="background-color: rgb(255, 0, 0); color: white;">Compila il questionario</a><br><br>
+    
         <a href="Progetti.html" class="button">Torna indietro</a><br><br><br>
-        Calcolatore v 1.0.0 
+
+        <p style="font-size: 16px; color: rgb(0, 0, 0); margin: 0px 0 10px 0;">
+            Consulta le versioni.
+          </p>
+        <a href="Versioni_calcolatore.pdf" class="button" style="background-color: #555; color: white;">Versione 1.2.0</a><br><br><br>
+
+        
     </section>
 
     <footer>
@@ -572,48 +605,46 @@
 
     <!-- SCRIPT -->
     <script>
-
         function openZavorraPage() {
             document.getElementById("mainSection").style.display = "none";
             document.getElementById("zavorraPage").style.display = "block";
             window.scrollTo(0, 0);
         }
-
+    
         function toggleDensitaMuta() {
             let scelta = document.getElementById("conosciDensita").value;
             document.getElementById("densitaMutaBox").style.display = (scelta === "si") ? "block" : "none";
         }
-
+    
         function toggleTipoMuta() {
             let tipoMuta = document.getElementById("muta").value;
             let pezziContainer = document.getElementById("pezziMutaContainer");
-            let pezziMuta = document.getElementById("pezziMuta");
             let boxSingolo = document.getElementById("spessoreSingoloBox");
             let boxDoppio = document.getElementById("spessoreDoppioBox");
-
+            let tipoSpessoreSemistagnaContainer = document.getElementById("tipoSpessoreSemistagnaContainer");
+            let boxSemiNonOmogenea = document.getElementById("spessoreSemistagnaNonOmogeneoBox");
+    
             if (tipoMuta === "semistagna") {
                 pezziContainer.style.display = "none";
-                pezziMuta.value = "uno";
-                boxSingolo.style.display = "block";
                 boxDoppio.style.display = "none";
+                tipoSpessoreSemistagnaContainer.style.display = "block";
+                toggleSpessoreSemistagna();
             } else {
+                tipoSpessoreSemistagnaContainer.style.display = "none";
+                boxSemiNonOmogenea.style.display = "none";
                 pezziContainer.style.display = "block";
                 toggleSpessoreMuta();
             }
         }
-
+    
         function toggleSpessoreMuta() {
             let pezzi = document.getElementById("pezziMuta").value;
-            let tipoMuta = document.getElementById("muta").value;
             let boxSingolo = document.getElementById("spessoreSingoloBox");
             let boxDoppio = document.getElementById("spessoreDoppioBox");
-
-            if (tipoMuta === "semistagna") {
-                boxSingolo.style.display = "block";
-                boxDoppio.style.display = "none";
-                return;
-            }
-
+            let boxSemiNonOmogenea = document.getElementById("spessoreSemistagnaNonOmogeneoBox");
+    
+            boxSemiNonOmogenea.style.display = "none";
+    
             if (pezzi === "due") {
                 boxSingolo.style.display = "none";
                 boxDoppio.style.display = "block";
@@ -622,35 +653,53 @@
                 boxDoppio.style.display = "none";
             }
         }
-
+    
+        function toggleSpessoreSemistagna() {
+            let scelta = document.getElementById("tipoSpessoreSemistagna").value;
+            let boxSingolo = document.getElementById("spessoreSingoloBox");
+            let boxDoppio = document.getElementById("spessoreDoppioBox");
+            let boxSemiNonOmogenea = document.getElementById("spessoreSemistagnaNonOmogeneoBox");
+    
+            boxDoppio.style.display = "none";
+    
+            if (scelta === "omogeneo") {
+                boxSingolo.style.display = "block";
+                boxSemiNonOmogenea.style.display = "none";
+            } else {
+                boxSingolo.style.display = "none";
+                boxSemiNonOmogenea.style.display = "block";
+            }
+        }
+    
         window.onload = function () {
             toggleTipoMuta();
+            toggleDensitaMuta();
         };
-
+    
         /* -------------------------
            FUNZIONI FISICHE
         ------------------------- */
-
+    
         let rho_corpoideale = 1000;
-
+    
         function calcolaBF(BMI, eta, sesso) {
             return (1.20 * BMI) + (0.23 * eta) - (10.8 * sesso) - 5.4;
         }
-
+    
         function offsetProfilo(sesso, profilo) {
             if (profilo === 0) return 0;
             if (profilo === 1) return sesso === 1 ? 5 : 3;
             if (profilo === 2) return sesso === 1 ? 10 : 8;
         }
-
+    
         function densitaPersona(BF, sesso, profilo) {
             return rho_corpoideale - BF + offsetProfilo(sesso, profilo);
         }
-
+    
         /* -------------------------
            DATABASE BOMBOLA
         ------------------------- */
-
+    
         const bombole = {
             "steel-11": { massa: 11, litri: 10, rho: 7800 },
             "steel-14": { massa: 14, litri: 12, rho: 7800 },
@@ -659,62 +708,46 @@
             "alu-15": { massa: 15, litri: 12, rho: 2700 },
             "alu-19": { massa: 19, litri: 15, rho: 2700 }
         };
-
+    
         function calcolaZavorra() {
-
             /* -------------------------
                INPUT UTENTE
             ------------------------- */
-
-            let Mpers = parseFloat(document.getElementById("peso").value);      // kg
-            let h_cm = parseFloat(document.getElementById("altezza").value);    // cm
+    
+            let Mpers = parseFloat(document.getElementById("peso").value);
+            let h_cm = parseFloat(document.getElementById("altezza").value);
             let eta = parseFloat(document.getElementById("eta").value);
             let sesso = parseInt(document.getElementById("sesso").value);
             let profilo = parseInt(document.getElementById("profilo").value);
-
-            let t_mm = parseFloat(document.getElementById("spessore").value);   // mm
-            let rho_a = parseFloat(document.getElementById("acqua").value);     // kg/m^3
-
+    
+            let rho_a = parseFloat(document.getElementById("acqua").value);
             let rho_piombo = 11300;
-
+    
             /* -------------------------
                CONVERSIONI
             ------------------------- */
-
-            let h = h_cm / 100;      // m
-            let t = t_mm / 1000;     // m
-
+    
+            let h = h_cm / 100;
+    
             /* -------------------------
                PERSONA
             ------------------------- */
-
+    
             let BMI = Mpers / (h * h);
             let BF = calcolaBF(BMI, eta, sesso);
             let rho_pers = densitaPersona(BF, sesso, profilo);
-
+    
             let Vpers = Mpers / rho_pers;
-
+    
             /* -------------------------
-            MUTA (MODELLO A 3 CILINDRI)
+               MUTA (MODELLO A 3 CILINDRI)
             ------------------------- */
-
+    
             let tipoMuta = document.getElementById("muta").value;
             let conosci = document.getElementById("conosciDensita").value;
-            let pezziMuta = document.getElementById("pezziMuta").value;
-
-            let tArti;
-            let tTorso;
-
-
-            if (pezziMuta === "due") {
-                tgiacca = parseFloat(document.getElementById("spessoreArti").value) / 1000;
-                tsalopet = parseFloat(document.getElementById("spessoreTorso").value) / 1000;
-            } else {
-                t = parseFloat(document.getElementById("spessore").value) / 1000;
-            }
-
+    
             let rho_muta;
-
+    
             if (conosci === "si") {
                 rho_muta = parseFloat(document.getElementById("densitaMutaInput").value);
             } else {
@@ -724,125 +757,139 @@
                     rho_muta = 600;
                 }
             }
+    
             // volumi corporei (proporzioni antropometriche)
             let Vtorso = 0.5 * Vpers;
             let Vbraccio = (0.1 * Vpers) / 2;
             let Vgamba = (0.4 * Vpers) / 2;
-
+    
             // altezze segmenti
             let h_torso = 0.30 * h;
             let h_braccio = 0.45 * h;
             let h_gamba = 0.53 * h;
-
+    
             // raggi dei cilindri
             let r_torso = Math.sqrt(Vtorso / (Math.PI * h_torso));
             let r_braccio = Math.sqrt(Vbraccio / (Math.PI * h_braccio));
             let r_gamba = Math.sqrt(Vgamba / (Math.PI * h_gamba));
-
+    
             // superfici laterali
             let A_torso = 2 * Math.PI * r_torso * h_torso;
             let A_braccio = 2 * Math.PI * r_braccio * h_braccio;
             let A_gamba = 2 * Math.PI * r_gamba * h_gamba;
-
-            // volume totale muta (somma superfici * spessore)
-            let Vmuta;
-
-            if (pezziMuta === "due") {
-                Vmuta = (A_torso * (tgiacca + tsalopet)) + (2 * A_braccio * tgiacca) + (2 * A_gamba * tsalopet);
+    
+            // volume totale muta
+            let Vmuta = 0;
+    
+            if (tipoMuta === "semistagna") {
+                let tipoSpessoreSemistagna = document.getElementById("tipoSpessoreSemistagna").value;
+    
+                if (tipoSpessoreSemistagna === "omogeneo") {
+                    let t = parseFloat(document.getElementById("spessore").value) / 1000;
+                    Vmuta = (A_torso + 2 * A_braccio + 2 * A_gamba) * t;
+                } else {
+                    let tTorso = parseFloat(document.getElementById("spessoreTorsoSemi").value) / 1000;
+                    let tBraccia = parseFloat(document.getElementById("spessoreBracciaSemi").value) / 1000;
+                    let tGambe = parseFloat(document.getElementById("spessoreGambeSemi").value) / 1000;
+    
+                    Vmuta = (A_torso * tTorso) + (2 * A_braccio * tBraccia) + (2 * A_gamba * tGambe);
+                }
             } else {
-                Vmuta = (A_torso + 2 * A_braccio + 2 * A_gamba) * t;
+                let pezziMuta = document.getElementById("pezziMuta").value;
+    
+                if (pezziMuta === "due") {
+                    let tgiacca = parseFloat(document.getElementById("spessoreArti").value) / 1000;
+                    let tsalopet = parseFloat(document.getElementById("spessoreTorso").value) / 1000;
+    
+                    Vmuta = (A_torso * (tgiacca + tsalopet)) + (2 * A_braccio * tgiacca) + (2 * A_gamba * tsalopet);
+                } else {
+                    let t = parseFloat(document.getElementById("spessore").value) / 1000;
+                    Vmuta = (A_torso + 2 * A_braccio + 2 * A_gamba) * t;
+                }
             }
-
+    
             // massa muta
             let Mmuta = Vmuta * rho_muta;
-
-
+    
             /* -------------------------
                BOMBOLA (CORRETTO)
             ------------------------- */
-
+    
             let bombSel = document.getElementById("bombola").value;
             let bomb = bombole[bombSel];
-
+    
             let Mbomb_scarica = bomb.massa;
             let litri = bomb.litri;
             let rho_bomb = bomb.rho;
-
-            // volume interno (aria)
+    
             let Vint = litri / 1000;
-
-            // volume materiale bombola
             let Vacc = Mbomb_scarica / rho_bomb;
-
-            // volume totale spostato
             let Vbomb = Vint + Vacc;
-
-            // massa aria (serve SOLO per peso, non per volume)
+    
             let Pbomb = 30000000;
             let R = 287;
             let T = 303;
-
+    
             let Maria = (Vint * Pbomb) / (R * T);
-
             let Mbomb = Mbomb_scarica + Maria;
-
+    
             /* -------------------------
                ATTREZZATURA
             ------------------------- */
-
+    
             let massaGAV = 3.5;
             let rho_gav = 1000;
-
+    
             let massaOctopus = 1.8;
             let rho_octopus = 940;
-
+    
             let massaPinne = 2.2;
             let rho_pinne = 1040;
-
+    
             let Mattr = massaGAV + massaOctopus + massaPinne;
-
+    
             let Vattr = (massaGAV / rho_gav) +
                 (massaOctopus / rho_octopus) +
                 (massaPinne / rho_pinne);
-
+    
             /* -------------------------
                EQUILIBRIO
             ------------------------- */
-
+    
             let num = rho_a * (Vpers + Vmuta + Vbomb + Vattr)
                 - (Mpers + Mmuta + Mbomb + Mattr);
-
+    
             let den = 1 - (rho_a / rho_piombo);
-
+    
             let Mp = num / den;
-
+    
             /* -------------------------
                OUTPUT
             ------------------------- */
-
+    
             function arrotondaZavorra(valore, assetto) {
                 const x = Math.floor(valore);
                 const dec = valore - x;
-
+    
                 if (dec < 0.25) {
                     return x;
                 }
-
+    
                 if (dec >= 0.25 && dec < 0.50) {
                     return assetto === "positivo" ? x + 0.5 : x;
                 }
-
+    
                 if (dec >= 0.50 && dec < 0.75) {
                     return x + 0.5;
                 }
-
+    
                 return assetto === "positivo" ? x + 1 : x;
             }
-
+    
             let interpretazione = "";
             let conclusione = "Prova il valore consigliato, se lo necessiti modifica partendo da questo valore.";
             let assetto = "";
-
+    
             if (rho_pers > 995) {
                 assetto = "negativo";
                 interpretazione = "Tendi ad essere negativo: la tua densità corporea è relativamente alta e potresti richiedere poca zavorra.";
@@ -853,19 +900,17 @@
                 assetto = "neutro";
                 interpretazione = "Tendi ad essere neutro: la tua corporatura e l'attrezzatura portano a una richiesta di zavorra intermedia.";
             }
-
+    
             let Mp_approx = arrotondaZavorra(Mp, assetto);
-
+    
             document.getElementById("risultatoZavorra").innerHTML =
                 "Zavorra calcolata: " + Mp.toFixed(2) + " kg<br><br>" +
                 "<span style='font-size:16px; font-weight:normal;'>" + interpretazione + "</span><br><br>" +
                 "Zavorra consigliata: " + Mp_approx.toFixed(1) + " kg<br><br>" +
                 "<span style='font-size:16px; font-weight:normal;'>" + conclusione + "</span>";
         }
-
     </script>
 
 </body>
 
 </html>
-

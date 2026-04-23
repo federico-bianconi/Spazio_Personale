@@ -616,6 +616,8 @@
 
     <!-- SCRIPT -->
     <script>
+
+
         function openZavorraPage() {
             document.getElementById("mainSection").style.display = "none";
             document.getElementById("zavorraPage").style.display = "block";
@@ -668,8 +670,6 @@
             }
         }
 
-
-
         function toggleSpessoreMuta() {
             let pezzi = document.getElementById("pezziMuta").value;
             let boxSingolo = document.getElementById("spessoreSingoloBox");
@@ -714,7 +714,9 @@
            FUNZIONI FISICHE
         ------------------------- */
 
-        let rho_corpoideale = 1000;
+        const RHO_MASSA_MAGRA = 1100;
+        const RHO_MASSA_GRASSA = 900;
+        const V_POLMONI = 0.004; // 4 litri in m^3
 
         function calcolaBF(BMI, eta, sesso) {
             return (1.20 * BMI) + (0.23 * eta) - (10.8 * sesso) - 5.4;
@@ -724,11 +726,20 @@
             if (profilo === 0) return 0;
             if (profilo === 1) return sesso === 1 ? 5 : 3;
             if (profilo === 2) return sesso === 1 ? 10 : 8;
+            return 0;
         }
 
-        function densitaPersona(BF, sesso, profilo) {
-            return rho_corpoideale - BF + offsetProfilo(sesso, profilo);
+        function densitaTessuto(BF_percent) {
+            let BF = BF_percent / 100;
+            return 1 / ((BF / RHO_MASSA_GRASSA) + ((1 - BF) / RHO_MASSA_MAGRA));
         }
+
+        function densitaPersona(Mpers, BF_percent, sesso, profilo) {
+            let rho_tessuto = densitaTessuto(BF_percent);
+            let Vtessuto = Mpers / rho_tessuto;
+            return (Mpers / (Vtessuto + V_POLMONI)) + offsetProfilo(sesso, profilo);
+        }
+
 
         /* -------------------------
            DATABASE BOMBOLA
@@ -769,9 +780,10 @@
 
             let BMI = Mpers / (h * h);
             let BF = calcolaBF(BMI, eta, sesso);
-            let rho_pers = densitaPersona(BF, sesso, profilo);
+            let rho_pers = densitaPersona(Mpers, BF, sesso, profilo);
 
             let Vpers = Mpers / rho_pers;
+
 
             /* -------------------------
                MUTA (MODELLO A 3 CILINDRI)
@@ -879,7 +891,7 @@
                 let Vacc = Mbomb_scarica / rho_bomb;
                 Vbomb = Vint + Vacc;
 
-                let Pbomb = 20000000; // 200 bar 
+                let Pbomb = 22000000; // 220 bar 
                 let R = 287;
                 let T = 303;
 
@@ -919,24 +931,10 @@
             let Mp = num / den;
 
 
-            function arrotondaZavorra(valore, assetto) {
-                const x = Math.floor(valore);
-                const dec = valore - x;
-
-                if (dec < 0.25) {
-                    return x;
-                }
-
-                if (dec >= 0.25 && dec < 0.50) {
-                    return assetto === "positivo" ? x + 0.5 : x;
-                }
-
-                if (dec >= 0.50 && dec < 0.75) {
-                    return x + 0.5;
-                }
-
-                return assetto === "positivo" ? x + 1 : x;
+            function arrotondaZavorra(valore) {
+                return Math.round(valore * 2) / 2;
             }
+
 
             let interpretazione = "";
             let conclusione = "Prova il valore consigliato, se lo necessiti modifica partendo da questo valore.";
@@ -953,7 +951,7 @@
                 interpretazione = "Tendi ad essere neutro: la tua corporatura e l'attrezzatura portano a una richiesta di zavorra intermedia.";
             }
 
-            let Mp_approx = arrotondaZavorra(Mp, assetto);
+            let Mp_approx = arrotondaZavorra(Mp);
 
             document.getElementById("risultatoZavorra").innerHTML =
                 "Zavorra calcolata: " + Mp.toFixed(2) + " kg<br><br>" +

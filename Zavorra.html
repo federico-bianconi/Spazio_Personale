@@ -472,6 +472,22 @@
                 <option value="2">Atleta</option>
             </select><br><br>
 
+            <label>Conosci la tua percentuale di grasso?</label>
+            <select id="conosciBF" onchange="toggleBFInput()">
+                <option value="no">No</option>
+                <option value="si">Sì</option>
+            </select><br><br>
+
+            <div id="bfInputBox" style="display:none; margin-top: 2px;">
+                <p style="font-size: 14px; color: #555; margin: 0 0 4px 0;">
+                    Inserisci il valore con anche i decimali. Es: 20.5
+                </p>
+                <label>Inserisci la tua percentuale di grasso (%):</label>
+                <input type="number" id="bfInput" step="0.1" min="0" max="100"><br><br>
+            </div> 
+
+
+
             <label>Tipo di attività:</label>
             <select id="tipoAttivita" onchange="toggleTipoAttivita()">
                 <option value="apnea">Apnea</option>
@@ -579,7 +595,7 @@
             Consulta le versioni.
         </p>
         <a href="Versioni_calcolatore.pdf" class="button" style="background-color: #555; color: white;">Versione
-            2.0.1</a><br><br><br>
+            2.1.1</a><br><br><br>
 
 
     </section>
@@ -621,21 +637,27 @@
             document.getElementById("zavorraPage").style.display = "block";
             window.scrollTo(0, 0);
         }
-        
+
+        function toggleBFInput() {
+            let scelta = document.getElementById("conosciBF").value;
+            document.getElementById("bfInputBox").style.display = (scelta === "si") ? "block" : "none";
+        }
+
+
         function toggleTipoAttivita() {
             let tipoAttivita = document.getElementById("tipoAttivita").value;
             let bombolaContainer = document.getElementById("bombolaContainer");
             bombolaContainer.style.display = (tipoAttivita === "apnea") ? "none" : "block";
         }
-        
+
         function toggleDensitaMuta() {
             let scelta = document.getElementById("conosciDensita").value;
             document.getElementById("densitaMutaBox").style.display = (scelta === "si") ? "block" : "none";
         }
-        
+
         const COEFF_BRACCIA_MUTINO = 0.35;
         const COEFF_GAMBE_MUTINO = 0.45;
-        
+
         function toggleTipoMuta() {
             let tipoMuta = document.getElementById("muta").value;
             let pezziContainer = document.getElementById("pezziMutaContainer");
@@ -643,7 +665,7 @@
             let boxDoppio = document.getElementById("spessoreDoppioBox");
             let tipoSpessoreSemistagnaContainer = document.getElementById("tipoSpessoreSemistagnaContainer");
             let boxSemiNonOmogenea = document.getElementById("spessoreSemistagnaNonOmogeneoBox");
-        
+
             if (tipoMuta === "umida") {
                 pezziContainer.style.display = "block";
                 tipoSpessoreSemistagnaContainer.style.display = "none";
@@ -662,15 +684,15 @@
                 toggleSpessoreSemistagna();
             }
         }
-        
+
         function toggleSpessoreMuta() {
             let pezzi = document.getElementById("pezziMuta").value;
             let boxSingolo = document.getElementById("spessoreSingoloBox");
             let boxDoppio = document.getElementById("spessoreDoppioBox");
             let boxSemiNonOmogenea = document.getElementById("spessoreSemistagnaNonOmogeneoBox");
-        
+
             boxSemiNonOmogenea.style.display = "none";
-        
+
             if (pezzi === "due") {
                 boxSingolo.style.display = "none";
                 boxDoppio.style.display = "block";
@@ -679,15 +701,15 @@
                 boxDoppio.style.display = "none";
             }
         }
-        
+
         function toggleSpessoreSemistagna() {
             let scelta = document.getElementById("tipoSpessoreSemistagna").value;
             let boxSingolo = document.getElementById("spessoreSingoloBox");
             let boxDoppio = document.getElementById("spessoreDoppioBox");
             let boxSemiNonOmogenea = document.getElementById("spessoreSemistagnaNonOmogeneoBox");
-        
+
             boxDoppio.style.display = "none";
-        
+
             if (scelta === "omogeneo") {
                 boxSingolo.style.display = "block";
                 boxSemiNonOmogenea.style.display = "none";
@@ -696,39 +718,40 @@
                 boxSemiNonOmogenea.style.display = "block";
             }
         }
-        
+
         window.onload = function () {
             toggleTipoMuta();
             toggleDensitaMuta();
             toggleTipoAttivita();
+            toggleBFInput();
         };
-        
+
         const RHO_MASSA_MAGRA = 1100;
         const RHO_MASSA_GRASSA = 900;
         const V_POLMONI = 0.004;
-        
+
         function calcolaBF(BMI, eta, sesso) {
             return (1.20 * BMI) + (0.23 * eta) - (10.8 * sesso) - 5.4;
         }
-        
+
         function offsetProfilo(sesso, profilo) {
             if (profilo === 0) return 0;
             if (profilo === 1) return sesso === 1 ? 5 : 3;
             if (profilo === 2) return sesso === 1 ? 10 : 8;
             return 0;
         }
-        
+
         function densitaTessuto(BF_percent) {
             let BF = BF_percent / 100;
             return 1 / ((BF / RHO_MASSA_GRASSA) + ((1 - BF) / RHO_MASSA_MAGRA));
         }
-        
+
         function densitaPersona(Mpers, BF_percent, sesso, profilo) {
             let rho_tessuto = densitaTessuto(BF_percent);
             let Vtessuto = Mpers / rho_tessuto;
             return (Mpers / (Vtessuto + V_POLMONI)) + offsetProfilo(sesso, profilo);
         }
-        
+
         const bombole = {
             "steel-11": { massa: 11, litri: 10, rho: 7800 },
             "steel-14": { massa: 14, litri: 12, rho: 7800 },
@@ -737,7 +760,7 @@
             "alu-15": { massa: 15, litri: 12, rho: 2700 },
             "alu-19": { massa: 19, litri: 15, rho: 2700 }
         };
-        
+
         function calcolaZavorra() {
             let Mpers = parseFloat(document.getElementById("peso").value);
             let h_cm = parseFloat(document.getElementById("altezza").value);
@@ -747,18 +770,26 @@
             let tipoAttivita = document.getElementById("tipoAttivita").value;
             let rho_a = parseFloat(document.getElementById("acqua").value);
             let rho_piombo = 11300;
-        
+
             let h = h_cm / 100;
-        
+
             let BMI = Mpers / (h * h);
-            let BF = calcolaBF(BMI, eta, sesso);
+            let conosciBF = document.getElementById("conosciBF").value;
+            let BF;
+
+            if (conosciBF === "si") {
+                BF = parseFloat(document.getElementById("bfInput").value);
+            } else {
+                BF = calcolaBF(BMI, eta, sesso);
+            }
+
             let rho_pers = densitaPersona(Mpers, BF, sesso, profilo);
             let Vpers = Mpers / rho_pers;
-        
+
             let tipoMuta = document.getElementById("muta").value;
             let conosci = document.getElementById("conosciDensita").value;
             let rho_muta;
-        
+
             if (conosci === "si") {
                 rho_muta = parseFloat(document.getElementById("densitaMutaInput").value);
             } else {
@@ -768,28 +799,28 @@
                     rho_muta = 600;
                 }
             }
-        
+
             let Vtorso = 0.5 * Vpers;
             let Vbraccio = (0.1 * Vpers) / 2;
             let Vgamba = (0.4 * Vpers) / 2;
-        
+
             let h_torso = 0.30 * h;
             let h_braccio = 0.45 * h;
             let h_gamba = 0.53 * h;
-        
+
             let r_torso = Math.sqrt(Vtorso / (Math.PI * h_torso));
             let r_braccio = Math.sqrt(Vbraccio / (Math.PI * h_braccio));
             let r_gamba = Math.sqrt(Vgamba / (Math.PI * h_gamba));
-        
+
             let A_torso = 2 * Math.PI * r_torso * h_torso;
             let A_braccio = 2 * Math.PI * r_braccio * h_braccio;
             let A_gamba = 2 * Math.PI * r_gamba * h_gamba;
-        
+
             let Vmuta = 0;
-        
+
             if (tipoMuta === "semistagna") {
                 let tipoSpessoreSemistagna = document.getElementById("tipoSpessoreSemistagna").value;
-        
+
                 if (tipoSpessoreSemistagna === "omogeneo") {
                     let t = parseFloat(document.getElementById("spessore").value) / 1000;
                     Vmuta = (A_torso + 2 * A_braccio + 2 * A_gamba) * t;
@@ -802,75 +833,75 @@
             } else if (tipoMuta === "mutino") {
                 let t = parseFloat(document.getElementById("spessore").value) / 1000;
                 Vmuta = (A_torso * t) +
-                        (2 * A_braccio * t * COEFF_BRACCIA_MUTINO) +
-                        (2 * A_gamba * t * COEFF_GAMBE_MUTINO);
+                    (2 * A_braccio * t * COEFF_BRACCIA_MUTINO) +
+                    (2 * A_gamba * t * COEFF_GAMBE_MUTINO);
             } else {
                 let pezziMuta = document.getElementById("pezziMuta").value;
-        
+
                 if (pezziMuta === "due") {
                     let tgiacca = parseFloat(document.getElementById("spessoreArti").value) / 1000;
                     let tsalopet = parseFloat(document.getElementById("spessoreTorso").value) / 1000;
                     Vmuta = (A_torso * (tgiacca + tsalopet)) + (2 * A_braccio * tgiacca) + (2 * A_gamba * tsalopet);
                 } else {
                     let t = parseFloat(document.getElementById("spessore").value) / 1000;
-                    Vmuta = (A_torso + 2 * A_braccio + 2 * A_gamba) * t;
+                    Vmuta = (A_torso + (2 * A_braccio) + (2 * A_gamba)) * t;
                 }
             }
-        
+
             let Mmuta = Vmuta * rho_muta;
-        
+
             let Vbomb = 0;
             let Mbomb = 0;
             let Mattr = 0;
             let Vattr = 0;
-        
+
             if (tipoAttivita === "ricreativa") {
                 let bombSel = document.getElementById("bombola").value;
                 let bomb = bombole[bombSel];
                 let Mbomb_scarica = bomb.massa;
                 let litri = bomb.litri;
                 let rho_bomb = bomb.rho;
-        
+
                 let Vint = litri / 1000;
                 let Vacc = Mbomb_scarica / rho_bomb;
                 Vbomb = Vint + Vacc;
-        
+
                 let Pbomb = 22000000;
                 let R = 287;
-                let T = 303;
+                let T = 303.15;
                 let Maria = (Vint * Pbomb) / (R * T);
                 Mbomb = Mbomb_scarica + Maria;
-        
+
                 let massaGAV = 3.5;
                 let rho_gav = 1000;
-                let massaOctopus = 1.8;
+                let massaOctopus = 2.2;
                 let rho_octopus = 940;
-                let massaPinne = 2.2;
+                let massaPinne = 2.5;
                 let rho_pinne = 1040;
-        
+
                 Mattr = massaGAV + massaOctopus + massaPinne;
                 Vattr = (massaGAV / rho_gav) +
-                        (massaOctopus / rho_octopus) +
-                        (massaPinne / rho_pinne);
+                    (massaOctopus / rho_octopus) +
+                    (massaPinne / rho_pinne);
             }
-        
+
             let num;
             if (tipoAttivita === "apnea") {
                 num = rho_a * (Vpers + Vmuta) - (Mpers + Mmuta);
             } else {
                 num = rho_a * (Vpers + Vmuta + Vbomb + Vattr) - (Mpers + Mmuta + Mbomb + Mattr);
             }
-        
+
             let den = 1 - (rho_a / rho_piombo);
             let Mp = num / den;
-        
+
             function arrotondaZavorra(valore) {
                 return Math.round(valore * 2) / 2;
             }
-        
+
             let interpretazione = "";
             let conclusione = "Prova il valore consigliato, se lo necessiti modifica partendo da questo valore.";
-        
+
             if (rho_pers > 995) {
                 interpretazione = "Tendi ad essere negativo: la tua densità corporea è relativamente alta e potresti richiedere poca zavorra.";
             } else if (rho_pers < 975) {
@@ -878,17 +909,17 @@
             } else {
                 interpretazione = "Tendi ad essere neutro: la tua corporatura e l'attrezzatura portano a una richiesta di zavorra intermedia.";
             }
-        
+
             let Mp_approx = arrotondaZavorra(Mp);
-        
+
             document.getElementById("risultatoZavorra").innerHTML =
                 "Zavorra calcolata: " + Mp.toFixed(2) + " kg<br><br>" +
                 "<span style='font-size:16px; font-weight:normal;'>" + interpretazione + "</span><br><br>" +
                 "Zavorra consigliata: " + Mp_approx.toFixed(1) + " kg<br><br>" +
                 "<span style='font-size:16px; font-weight:normal;'>" + conclusione + "</span>";
         }
-        </script>
-        
+    </script>
+
 
 </body>
 

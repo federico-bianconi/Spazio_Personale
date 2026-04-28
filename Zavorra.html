@@ -290,6 +290,65 @@
             margin-top: 20px;
         }
 
+        input {
+            border-radius: 12px;
+            border: 1px solid #999;
+            padding: 4px 8px;
+            text-align: center;
+        }
+
+        select {
+            border-radius: 12px;
+            border: 1px solid #999;
+        }
+
+
+
+        /* Rimuove le freccette dagli input numerici */
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        .pulse-button {
+            display: inline-block;
+            background-color: #b30000;
+            color: white;
+            text-decoration: none;
+            padding: 12px 22px;
+            border-radius: 14px;
+            font-weight: bold;
+            transition: transform 0.2s ease;
+            animation: pulseColor 1.8s infinite ease-in-out;
+        }
+
+        .pulse-button:hover {
+            transform: scale(1.04);
+        }
+
+        @keyframes pulseColor {
+            0% {
+                background-color: #a80000;
+                box-shadow: 0 0 0 rgba(255, 0, 0, 0.0);
+            }
+
+            50% {
+                background-color: #ff3b3b;
+                box-shadow: 0 0 14px rgba(255, 59, 59, 0.35);
+            }
+
+            100% {
+                background-color: #a80000;
+                box-shadow: 0 0 0 rgba(255, 0, 0, 0.0);
+            }
+        }
+
+
         /* --- MEDIA QUERY MOBILE --- */
         @media (max-width: 600px) {
             header {
@@ -397,7 +456,8 @@
             }
 
             footer {
-                padding: 10px 0;
+                padding:
+                    10px 0;
                 font-size: 10px;
             }
 
@@ -410,19 +470,6 @@
 </head>
 
 <body>
-
-    <style>
-        /* Rimuove le freccette dagli input numerici */
-        input[type=number]::-webkit-inner-spin-button,
-        input[type=number]::-webkit-outer-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-
-        input[type=number] {
-            -moz-appearance: textfield;
-        }
-    </style>
 
     <header>
         <div class="header-content">
@@ -443,6 +490,10 @@
     <!-- CALCOLO ZAVORRA -->
     <section>
         <h2 style="margin-bottom: 30px;">CALCOLO DELLA ZAVORRA</h2>
+
+        <p style="font-size: 16px; color: rgb(0, 0, 0); margin: 0 0 4px 0;">
+            Consulata la teoria e il ragionamento dietro al calcolo!
+        </p>
 
         <a href="Zavorrata_empirica.pdf" class="button">Leggi la teoria</a><br><br>
 
@@ -482,11 +533,10 @@
                 <p style="font-size: 14px; color: #555; margin: 0 0 4px 0;">
                     Inserisci il valore con anche i decimali. Es: 20.5
                 </p>
-                <label>Inserisci la tua percentuale di grasso (%):</label>
-                <input type="number" id="bfInput" step="0.1" min="0" max="100"><br><br>
-            </div> 
-
-
+                <label for="bfInput">Inserisci la tua percentuale di grasso (%)</label>
+                <input type="number" id="bfInput" step="0.1" min="0" max="100" class="ios-input">
+                <br><br>
+            </div>
 
             <label>Tipo di attività:</label>
             <select id="tipoAttivita" onchange="toggleTipoAttivita()">
@@ -586,16 +636,19 @@
             Calcola la tua zavorra e lascia un feedback compilando il questionario.<br>
         </p>
 
-        <a href="https://forms.gle/kXnpnD8CLgBpGFF18" class="button"
-            style="background-color: rgb(255, 0, 0); color: white;">Compila il questionario</a><br><br>
+        <a href="https://forms.gle/kXnpnD8CLgBpGFF18" class="button pulse-button" style="color: white;">
+            Compila il questionario
+        </a><br><br>
 
         <a href="Progetti.html" class="button">Torna indietro</a><br><br><br>
 
         <p style="font-size: 16px; color: rgb(0, 0, 0); margin: 0px 0 10px 0;">
             Consulta le versioni.
         </p>
+        
         <a href="Versioni_calcolatore.pdf" class="button" style="background-color: #555; color: white;">Versione
-            2.1.1</a><br><br><br>
+            2.1.2
+        </a><br><br>
 
 
     </section>

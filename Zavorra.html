@@ -6,15 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Federico Bianconi | Spazio Personale</title>
     <style>
-        /* --- PAGINA MEDIA --- */
-        /* --- STILI GLOBALI --- */
-        /* --- 1. FRECCIA SCORRI (Definitiva) --- */
         #scrollArrow {
             display: none;
-            /* Gestito dallo script */
             position: fixed;
             bottom: 85px;
-            /* Altezza base Mobile */
             left: 50%;
             transform: translateX(-50%);
             z-index: 9999;
@@ -74,7 +69,6 @@
             }
         }
 
-        /* --- 2. HEADER --- */
         header {
             background: linear-gradient(180deg, #0073e6 0%, #00aaff 100%);
             color: white;
@@ -115,7 +109,6 @@
             margin: 0 auto;
         }
 
-        /* --- 3. NAVIGAZIONE --- */
         nav {
             display: flex;
             gap: 20px;
@@ -140,7 +133,6 @@
             transform: scale(1.05);
         }
 
-        /* --- 4. CONTENUTO --- */
         section {
             padding: 20px;
             max-width: 800px;
@@ -156,14 +148,13 @@
             text-align: center;
             line-height: 1.8;
             font-size: 17px;
-            color: #000000;
+            color: #000;
             margin-bottom: 20px;
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
         }
 
-        /* --- STILI PULSANTI E BOX ARTICOLI --- */
         .button {
             display: inline-block;
             padding: 10px 20px;
@@ -183,7 +174,7 @@
 
         .box-articolo {
             box-sizing: border-box;
-            border: 2px solid #000000;
+            border: 2px solid #000;
             border-radius: 15px;
             padding: 20px;
             margin: 20px auto;
@@ -198,7 +189,6 @@
             cursor: pointer;
         }
 
-        /* --- 5. FOOTER --- */
         footer {
             position: fixed;
             bottom: 0;
@@ -211,7 +201,6 @@
             z-index: 1000;
         }
 
-        /* --- 6. MODAL FOTO (ZOOM) --- */
         .modal {
             display: none;
             position: fixed;
@@ -244,7 +233,6 @@
             cursor: pointer;
         }
 
-        /* --- 7. MENU SEGRETO --- */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -300,11 +288,30 @@
         select {
             border-radius: 12px;
             border: 1px solid #999;
+            text-align-last: center;
         }
 
+        .field-row {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 18px;
+        }
 
+        .field-row label {
+            font-size: 15px;
+            font-weight: bold;
+            color: #222;
+        }
 
-        /* Rimuove le freccette dagli input numerici */
+        .field-row input,
+        .field-row select {
+            width: 180px;
+            height: 25px;
+            box-sizing: border-box;
+        }
+
         input[type=number]::-webkit-inner-spin-button,
         input[type=number]::-webkit-outer-spin-button {
             -webkit-appearance: none;
@@ -348,8 +355,6 @@
             }
         }
 
-
-        /* --- MEDIA QUERY MOBILE --- */
         @media (max-width: 600px) {
             header {
                 flex-direction: column;
@@ -426,7 +431,6 @@
 
             section {
                 padding: 20px 10px;
-                /* 20px sopra/sotto, 10px lati */
             }
 
             section:first-of-type {
@@ -437,14 +441,10 @@
                 margin-bottom: 0px;
             }
 
-            /* Regola l'altezza del titolo su Mobile */
             section h2 {
                 margin-top: 0 !important;
-                /* Toglie lo spazio "casuale" del browser */
                 padding-top: 5px;
-                /* <--- MODIFICA QUESTO NUMERO per alzare/abbassare */
                 margin-bottom: 30px;
-                /* Spazio sotto il titolo */
             }
 
             .testo-bio {
@@ -456,8 +456,7 @@
             }
 
             footer {
-                padding:
-                    10px 0;
+                padding: 10px 0;
                 font-size: 10px;
             }
 
@@ -487,11 +486,10 @@
         </nav>
     </header>
 
-    <!-- CALCOLO ZAVORRA -->
     <section>
         <h2 style="margin-bottom: 30px;">CALCOLO DELLA ZAVORRA</h2>
 
-        <p style="font-size: 16px; color: rgb(0, 0, 0); margin: 0 0 4px 0;">
+        <p style="font-size: 16px; color: rgb(0,0,0); margin: 0 0 4px 0;">
             Consulata la teoria e il ragionamento dietro al calcolo!
         </p>
 
@@ -501,83 +499,109 @@
 
             <h3>Inserisci i tuoi dati</h3>
 
-            <label>Peso persona (kg):</label>
-            <input type="number" id="peso" step="0.1"><br><br>
+            <div class="field-row">
+                <label>Peso corporeo (kg):</label>
+                <input type="number" id="peso" step="0.1">
+            </div>
 
-            <label>Altezza persona (cm):</label>
-            <input type="number" id="altezza" step="0.1"><br><br>
+            <div class="field-row">
+                <label>Altezza (cm):</label>
+                <input type="number" id="altezza" step="0.1">
+            </div>
 
-            <label>Età:</label>
-            <input type="number" id="eta" step="1"><br><br>
+            <div class="field-row">
+                <label>Età:</label>
+                <input type="number" id="eta" step="1">
+            </div>
 
-            <label>Sesso:</label>
-            <select id="sesso">
-                <option value="1">Maschio</option>
-                <option value="0">Femmina</option>
-            </select><br><br>
+            <div class="field-row">
+                <label>Sesso:</label>
+                <select id="sesso">
+                    <option value="1">Maschio</option>
+                    <option value="0">Femmina</option>
+                </select>
+            </div>
 
-            <label>Profilo:</label>
-            <select id="profilo">
-                <option value="0">Non sportivo</option>
-                <option value="1">Sportivo</option>
-                <option value="2">Atleta</option>
-            </select><br><br>
+            <div class="field-row">
+                <label>Profilo:</label>
+                <select id="profilo">
+                    <option value="0">Non sportivo</option>
+                    <option value="1">Sportivo</option>
+                    <option value="2">Atleta</option>
+                </select>
+            </div>
 
-            <label>Conosci la tua percentuale di grasso?</label>
-            <select id="conosciBF" onchange="toggleBFInput()">
-                <option value="no">No</option>
-                <option value="si">Sì</option>
-            </select><br><br>
+            <div class="field-row">
+                <label>Conosci la tua percentuale di grasso?</label>
+                <select id="conosciBF" onchange="toggleVisibility('bfInputBox', this.value === 'si')">
+                    <option value="no">No</option>
+                    <option value="si">Sì</option>
+                </select>
+            </div>
 
-            <div id="bfInputBox" style="display:none; margin-top: 2px;">
+            <div id="bfInputBox" style="display:none;">
                 <p style="font-size: 14px; color: #555; margin: 0 0 4px 0;">
                     Inserisci il valore con anche i decimali. Es: 20.5
                 </p>
-                <label for="bfInput">Inserisci la tua percentuale di grasso (%)</label>
-                <input type="number" id="bfInput" step="0.1" min="0" max="100" class="ios-input">
-                <br><br>
+                <div class="field-row">
+                    <label for="bfInput">Inserisci la tua percentuale di grasso (%)</label>
+                    <input type="number" id="bfInput" step="0.1" min="0" max="100">
+                </div>
             </div>
 
-            <label>Tipo di attività:</label>
-            <select id="tipoAttivita" onchange="toggleTipoAttivita()">
-                <option value="apnea">Apnea</option>
-                <option value="ricreativa">Immersione ricreativa</option>
-            </select><br><br>
+            <div class="field-row">
+                <label>Tipo di attività:</label>
+                <select id="tipoAttivita" onchange="onAttivitaChange()">
+                    <option value="apnea">Apnea</option>
+                    <option value="ricreativa">Immersione ricreativa</option>
+                </select>
+            </div>
 
-            <label>Tipo di muta:</label>
-            <select id="muta" onchange="toggleTipoMuta()">
-                <option value="mutino">Mutino</option>
-                <option value="umida">Muta umida</option>
-                <option value="semistagna">Muta semistagna</option>
-            </select><br><br>
+            <div class="field-row">
+                <label>Tipo di muta:</label>
+                <select id="muta" onchange="onMutaChange()">
+                    <option value="mutino">Mutino</option>
+                    <option value="umida">Muta umida</option>
+                    <option value="semistagna">Muta semistagna</option>
+                </select>
+            </div>
 
             <div id="pezziMutaContainer">
-                <label>La tua muta è pezzo unico o due pezzi?</label>
-                <select id="pezziMuta" onchange="toggleSpessoreMuta()">
-                    <option value="uno">1</option>
-                    <option value="due">2</option>
-                </select><br><br>
+                <div class="field-row">
+                    <label>La tua muta è pezzo unico o due pezzi?</label>
+                    <select id="pezziMuta" onchange="onPezziMutaChange()">
+                        <option value="uno">1</option>
+                        <option value="due">2</option>
+                    </select>
+                </div>
             </div>
 
             <div id="tipoSpessoreSemistagnaContainer" style="display:none;">
-                <label>Lo spessore è omogeneo o varia?</label>
-                <select id="tipoSpessoreSemistagna" onchange="toggleSpessoreSemistagna()">
-                    <option value="omogeneo">Spessore omogeneo</option>
-                    <option value="non_omogeneo">Spessore non omogeneo</option>
-                </select><br><br>
+                <div class="field-row">
+                    <label>Lo spessore è omogeneo o varia?</label>
+                    <select id="tipoSpessoreSemistagna" onchange="onSpessoreSemistagnaChange()">
+                        <option value="omogeneo">Spessore omogeneo</option>
+                        <option value="non_omogeneo">Spessore non omogeneo</option>
+                    </select>
+                </div>
             </div>
 
             <div id="spessoreSingoloBox">
-                <label>Spessore della muta (mm):</label>
-                <input type="number" id="spessore" step="0.1"><br><br>
+                <div class="field-row">
+                    <label>Spessore della muta (mm):</label>
+                    <input type="number" id="spessore" step="0.1">
+                </div>
             </div>
 
             <div id="spessoreDoppioBox" style="display:none;">
-                <label>Spessore della giacca (mm):</label>
-                <input type="number" id="spessoreArti" step="0.1"><br><br>
-
-                <label>Spessore della salopet (mm):</label>
-                <input type="number" id="spessoreTorso" step="0.1"><br><br>
+                <div class="field-row">
+                    <label>Spessore della giacca (mm):</label>
+                    <input type="number" id="spessoreArti" step="0.1">
+                </div>
+                <div class="field-row">
+                    <label>Spessore della salopet (mm):</label>
+                    <input type="number" id="spessoreTorso" step="0.1">
+                </div>
             </div>
 
             <div id="spessoreSemistagnaNonOmogeneoBox" style="display:none;">
@@ -585,45 +609,56 @@
                     Se non conosci i vari spessori, seleziona "spessore omogeneo" e inserisci un valore medio come unico
                     spessore.
                 </p>
-
-                <label>Spessore torso (mm):</label>
-                <input type="number" id="spessoreTorsoSemi" step="0.1"><br><br>
-
-                <label>Spessore braccia (mm):</label>
-                <input type="number" id="spessoreBracciaSemi" step="0.1"><br><br>
-
-                <label>Spessore gambe (mm):</label>
-                <input type="number" id="spessoreGambeSemi" step="0.1"><br><br>
+                <div class="field-row">
+                    <label>Spessore torso (mm):</label>
+                    <input type="number" id="spessoreTorsoSemi" step="0.1">
+                </div>
+                <div class="field-row">
+                    <label>Spessore braccia (mm):</label>
+                    <input type="number" id="spessoreBracciaSemi" step="0.1">
+                </div>
+                <div class="field-row">
+                    <label>Spessore gambe (mm):</label>
+                    <input type="number" id="spessoreGambeSemi" step="0.1">
+                </div>
             </div>
 
-            <label>Conosci la densità della tua muta?</label>
-            <select id="conosciDensita" onchange="toggleDensitaMuta()">
-                <option value="no">No</option>
-                <option value="si">Sì</option>
-            </select><br>
+            <div class="field-row">
+                <label>Conosci la densità della tua muta?</label>
+                <select id="conosciDensita" onchange="toggleVisibility('densitaMutaBox', this.value === 'si')">
+                    <option value="no">No</option>
+                    <option value="si">Sì</option>
+                </select>
+            </div>
 
-            <div id="densitaMutaBox" style="display: none; margin-top: 15px;">
-                <label>Specifica la densità della muta (kg/m³):</label>
-                <input type="number" id="densitaMutaInput" step="1">
-            </div><br>
+            <div id="densitaMutaBox" style="display: none;">
+                <div class="field-row">
+                    <label>Specifica la densità della muta (kg/m³):</label>
+                    <input type="number" id="densitaMutaInput" step="1">
+                </div>
+            </div>
 
             <div id="bombolaContainer">
-                <label>Tipo di bombola:</label>
-                <select id="bombola">
-                    <option value="steel-18">Acciaio 15 L</option>
-                    <option value="steel-14">Acciaio 12 L</option>
-                    <option value="steel-11">Acciaio 10 L</option>
-                    <option value="alu-19">Alluminio 15 L</option>
-                    <option value="alu-15">Alluminio 12 L</option>
-                    <option value="alu-12">Alluminio 10 L</option>
-                </select><br><br>
+                <div class="field-row">
+                    <label>Tipo di bombola:</label>
+                    <select id="bombola">
+                        <option value="steel-18">Acciaio 15 L</option>
+                        <option value="steel-14">Acciaio 12 L</option>
+                        <option value="steel-11">Acciaio 10 L</option>
+                        <option value="alu-19">Alluminio 15 L</option>
+                        <option value="alu-15">Alluminio 12 L</option>
+                        <option value="alu-12">Alluminio 10 L</option>
+                    </select>
+                </div>
             </div>
 
-            <label>Tipo di acqua:</label>
-            <select id="acqua">
-                <option value="1025">Acqua di mare</option>
-                <option value="1000">Acqua dolce</option>
-            </select><br><br>
+            <div class="field-row">
+                <label>Tipo di acqua:</label>
+                <select id="acqua">
+                    <option value="1025">Acqua di mare</option>
+                    <option value="1000">Acqua dolce</option>
+                </select>
+            </div>
 
             <a onclick="calcolaZavorra()" class="button">Calcola</a>
 
@@ -631,7 +666,7 @@
 
         </div><br><br>
 
-        <p style="font-size: 16px; color: rgb(0, 0, 0); margin: 0px 0 10px 0;">
+        <p style="font-size: 16px; color: rgb(0,0,0); margin: 0px 0 10px 0;">
             Aiutami a raffinare il mio calcolatore.<br>
             Calcola la tua zavorra e lascia un feedback compilando il questionario.<br>
         </p>
@@ -642,14 +677,12 @@
 
         <a href="Progetti.html" class="button">Torna indietro</a><br><br><br>
 
-        <p style="font-size: 16px; color: rgb(0, 0, 0); margin: 0px 0 10px 0;">
+        <p style="font-size: 16px; color: rgb(0,0,0); margin: 0px 0 10px 0;">
             Consulta le versioni.
         </p>
-        
-        <a href="Versioni_calcolatore.pdf" class="button" style="background-color: #555; color: white;">Versione
-            2.1.2
-        </a><br><br>
 
+        <a href="Versioni_calcolatore.pdf" class="button" style="background-color: #555; color: white;">Versione
+            2.1.2</a><br><br>
 
     </section>
 
@@ -670,7 +703,6 @@
         <div class="menu-box">
             <h3>Menu Rapido</h3>
             <p>Scegli una destinazione:</p>
-
             <button class="menu-btn"
                 onclick="window.location.href='https://federico-bianconi.github.io/Profilo_Digitale/index.html'">Profilo
                 Digitale</button>
@@ -683,105 +715,97 @@
 
     <div style="height: 50px;"></div>
 
-    <!-- SCRIPT -->
     <script>
-        function openZavorraPage() {
-            document.getElementById("mainSection").style.display = "none";
-            document.getElementById("zavorraPage").style.display = "block";
-            window.scrollTo(0, 0);
-        }
-
-        function toggleBFInput() {
-            let scelta = document.getElementById("conosciBF").value;
-            document.getElementById("bfInputBox").style.display = (scelta === "si") ? "block" : "none";
-        }
-
-
-        function toggleTipoAttivita() {
-            let tipoAttivita = document.getElementById("tipoAttivita").value;
-            let bombolaContainer = document.getElementById("bombolaContainer");
-            bombolaContainer.style.display = (tipoAttivita === "apnea") ? "none" : "block";
-        }
-
-        function toggleDensitaMuta() {
-            let scelta = document.getElementById("conosciDensita").value;
-            document.getElementById("densitaMutaBox").style.display = (scelta === "si") ? "block" : "none";
-        }
-
-        const COEFF_BRACCIA_MUTINO = 0.35;
-        const COEFF_GAMBE_MUTINO = 0.45;
-
-        function toggleTipoMuta() {
-            let tipoMuta = document.getElementById("muta").value;
-            let pezziContainer = document.getElementById("pezziMutaContainer");
-            let boxSingolo = document.getElementById("spessoreSingoloBox");
-            let boxDoppio = document.getElementById("spessoreDoppioBox");
-            let tipoSpessoreSemistagnaContainer = document.getElementById("tipoSpessoreSemistagnaContainer");
-            let boxSemiNonOmogenea = document.getElementById("spessoreSemistagnaNonOmogeneoBox");
-
-            if (tipoMuta === "umida") {
-                pezziContainer.style.display = "block";
-                tipoSpessoreSemistagnaContainer.style.display = "none";
-                boxSemiNonOmogenea.style.display = "none";
-                toggleSpessoreMuta();
-            } else if (tipoMuta === "mutino") {
-                pezziContainer.style.display = "none";
-                tipoSpessoreSemistagnaContainer.style.display = "none";
-                boxSemiNonOmogenea.style.display = "none";
-                boxDoppio.style.display = "none";
-                boxSingolo.style.display = "block";
-            } else if (tipoMuta === "semistagna") {
-                pezziContainer.style.display = "none";
-                boxDoppio.style.display = "none";
-                tipoSpessoreSemistagnaContainer.style.display = "block";
-                toggleSpessoreSemistagna();
-            }
-        }
-
-        function toggleSpessoreMuta() {
-            let pezzi = document.getElementById("pezziMuta").value;
-            let boxSingolo = document.getElementById("spessoreSingoloBox");
-            let boxDoppio = document.getElementById("spessoreDoppioBox");
-            let boxSemiNonOmogenea = document.getElementById("spessoreSemistagnaNonOmogeneoBox");
-
-            boxSemiNonOmogenea.style.display = "none";
-
-            if (pezzi === "due") {
-                boxSingolo.style.display = "none";
-                boxDoppio.style.display = "block";
-            } else {
-                boxSingolo.style.display = "block";
-                boxDoppio.style.display = "none";
-            }
-        }
-
-        function toggleSpessoreSemistagna() {
-            let scelta = document.getElementById("tipoSpessoreSemistagna").value;
-            let boxSingolo = document.getElementById("spessoreSingoloBox");
-            let boxDoppio = document.getElementById("spessoreDoppioBox");
-            let boxSemiNonOmogenea = document.getElementById("spessoreSemistagnaNonOmogeneoBox");
-
-            boxDoppio.style.display = "none";
-
-            if (scelta === "omogeneo") {
-                boxSingolo.style.display = "block";
-                boxSemiNonOmogenea.style.display = "none";
-            } else {
-                boxSingolo.style.display = "none";
-                boxSemiNonOmogenea.style.display = "block";
-            }
-        }
-
-        window.onload = function () {
-            toggleTipoMuta();
-            toggleDensitaMuta();
-            toggleTipoAttivita();
-            toggleBFInput();
-        };
-
+        // ─── COSTANTI ────────────────────────────────────────────────────────────────
         const RHO_MASSA_MAGRA = 1100;
         const RHO_MASSA_GRASSA = 900;
         const V_POLMONI = 0.004;
+        const RHO_PIOMBO = 11300;
+        const COEFF_BRACCIA_MUTINO = 0.35;
+        const COEFF_GAMBE_MUTINO = 0.45;
+
+        const BOMBOLE = {
+            "steel-11": { massa: 11, litri: 10, rho: 7800 },
+            "steel-14": { massa: 14, litri: 12, rho: 7800 },
+            "steel-18": { massa: 18, litri: 15, rho: 7800 },
+            "alu-12": { massa: 12, litri: 10, rho: 2700 },
+            "alu-15": { massa: 15, litri: 12, rho: 2700 },
+            "alu-19": { massa: 19, litri: 15, rho: 2700 }
+        };
+
+        const ATTREZZATURA = [
+            { massa: 3.5, rho: 1000 },  // GAV
+            { massa: 2.2, rho: 940 },  // Octopus
+            { massa: 2.5, rho: 1040 }   // Pinne
+        ];
+
+        // ─── UTILITY ─────────────────────────────────────────────────────────────────
+
+        /** Mostra/nasconde un elemento per id. */
+        function toggleVisibility(id, show) {
+            document.getElementById(id).style.display = show ? 'block' : 'none';
+        }
+
+        /** Legge il valore numerico di un input per id. */
+        function getNum(id) {
+            return parseFloat(document.getElementById(id).value);
+        }
+
+        /** Legge il valore testuale di un select per id. */
+        function getVal(id) {
+            return document.getElementById(id).value;
+        }
+
+        /** Arrotonda la zavorra al mezzo kg più vicino. */
+        function arrotondaZavorra(v) {
+            return Math.round(v * 2) / 2;
+        }
+
+        // ─── TOGGLE UI ───────────────────────────────────────────────────────────────
+
+        function onAttivitaChange() {
+            toggleVisibility('bombolaContainer', getVal('tipoAttivita') === 'ricreativa');
+        }
+
+        function onMutaChange() {
+            const muta = getVal('muta');
+            const isSemi = muta === 'semistagna';
+            const isUmida = muta === 'umida';
+            const isMutino = muta === 'mutino';
+
+            toggleVisibility('pezziMutaContainer', isUmida);
+            toggleVisibility('tipoSpessoreSemistagnaContainer', isSemi);
+
+            if (isSemi) {
+                // deleghiamo al handler del select semistagna
+                onSpessoreSemistagnaChange();
+            } else if (isMutino || isUmida) {
+                toggleVisibility('spessoreSemistagnaNonOmogeneoBox', false);
+                if (isUmida) {
+                    onPezziMutaChange();
+                } else {
+                    // mutino: sempre singolo
+                    toggleVisibility('spessoreSingoloBox', true);
+                    toggleVisibility('spessoreDoppioBox', false);
+                }
+            }
+        }
+
+        function onPezziMutaChange() {
+            const due = getVal('pezziMuta') === 'due';
+            toggleVisibility('spessoreSingoloBox', !due);
+            toggleVisibility('spessoreDoppioBox', due);
+            toggleVisibility('spessoreSemistagnaNonOmogeneoBox', false);
+        }
+
+        function onSpessoreSemistagnaChange() {
+            const omogeneo = getVal('tipoSpessoreSemistagna') === 'omogeneo';
+            toggleVisibility('spessoreSingoloBox', omogeneo);
+            toggleVisibility('spessoreDoppioBox', false);
+            toggleVisibility('spessoreSemistagnaNonOmogeneoBox', !omogeneo);
+        }
+
+        // ─── FISICA ──────────────────────────────────────────────────────────────────
 
         function calcolaBF(BMI, eta, sesso) {
             return (1.20 * BMI) + (0.23 * eta) - (10.8 * sesso) - 5.4;
@@ -795,184 +819,144 @@
         }
 
         function densitaTessuto(BF_percent) {
-            let BF = BF_percent / 100;
+            const BF = BF_percent / 100;
             return 1 / ((BF / RHO_MASSA_GRASSA) + ((1 - BF) / RHO_MASSA_MAGRA));
         }
 
         function densitaPersona(Mpers, BF_percent, sesso, profilo) {
-            let rho_tessuto = densitaTessuto(BF_percent);
-            let Vtessuto = Mpers / rho_tessuto;
+            const rho_t = densitaTessuto(BF_percent);
+            const Vtessuto = Mpers / rho_t;
             return (Mpers / (Vtessuto + V_POLMONI)) + offsetProfilo(sesso, profilo);
         }
 
-        const bombole = {
-            "steel-11": { massa: 11, litri: 10, rho: 7800 },
-            "steel-14": { massa: 14, litri: 12, rho: 7800 },
-            "steel-18": { massa: 18, litri: 15, rho: 7800 },
-            "alu-12": { massa: 12, litri: 10, rho: 2700 },
-            "alu-15": { massa: 15, litri: 12, rho: 2700 },
-            "alu-19": { massa: 19, litri: 15, rho: 2700 }
-        };
+        /** Calcola il volume della muta dato il volume corporeo e l'altezza. */
+        function calcolaVolumeMuta(Vpers, h) {
+            const muta = getVal('muta');
+
+            // Raggi e aree delle sezioni cilindriche
+            const h_torso = 0.30 * h, h_braccio = 0.45 * h, h_gamba = 0.53 * h;
+            const Vtorso = 0.5 * Vpers;
+            const Vbraccio = (0.10 * Vpers) / 2;
+            const Vgamba = (0.40 * Vpers) / 2;
+
+            const A = (V, hSeg) => 2 * Math.PI * Math.sqrt(V / (Math.PI * hSeg)) * hSeg;
+            const At = A(Vtorso, h_torso);
+            const Ab = A(Vbraccio, h_braccio);
+            const Ag = A(Vgamba, h_gamba);
+
+            if (muta === 'semistagna') {
+                if (getVal('tipoSpessoreSemistagna') === 'omogeneo') {
+                    const t = getNum('spessore') / 1000;
+                    return (At + 2 * Ab + 2 * Ag) * t;
+                } else {
+                    return At * (getNum('spessoreTorsoSemi') / 1000)
+                        + 2 * Ab * (getNum('spessoreBracciaSemi') / 1000)
+                        + 2 * Ag * (getNum('spessoreGambeSemi') / 1000);
+                }
+            }
+
+            if (muta === 'mutino') {
+                const t = getNum('spessore') / 1000;
+                return At * t
+                    + 2 * Ab * t * COEFF_BRACCIA_MUTINO
+                    + 2 * Ag * t * COEFF_GAMBE_MUTINO;
+            }
+
+            // muta umida
+            if (getVal('pezziMuta') === 'due') {
+                const tg = getNum('spessoreArti') / 1000;
+                const ts = getNum('spessoreTorso') / 1000;
+                return At * (tg + ts) + 2 * Ab * tg + 2 * Ag * ts;
+            } else {
+                const t = getNum('spessore') / 1000;
+                return (At + 2 * Ab + 2 * Ag) * t;
+            }
+        }
+
+        /** Calcola massa e volume della bombola (scarica → piena). */
+        function calcolaBombola(sel) {
+            const b = BOMBOLE[sel];
+            const Vint = b.litri / 1000;
+            const Vacc = b.massa / b.rho;
+            const Vbomb = Vint + Vacc;
+
+            const P = 22_000_000, R = 287, T = 303.15;
+            const Maria = (Vint * P) / (R * T);
+            const Mbomb = b.massa + Maria;
+
+            return { Vbomb, Mbomb };
+        }
+
+        // ─── CALCOLO PRINCIPALE ──────────────────────────────────────────────────────
 
         function calcolaZavorra() {
-            let Mpers = parseFloat(document.getElementById("peso").value);
-            let h_cm = parseFloat(document.getElementById("altezza").value);
-            let eta = parseFloat(document.getElementById("eta").value);
-            let sesso = parseInt(document.getElementById("sesso").value);
-            let profilo = parseInt(document.getElementById("profilo").value);
-            let tipoAttivita = document.getElementById("tipoAttivita").value;
-            let rho_a = parseFloat(document.getElementById("acqua").value);
-            let rho_piombo = 11300;
+            const Mpers = getNum('peso');
+            const h = getNum('altezza') / 100;
+            const eta = getNum('eta');
+            const sesso = parseInt(getVal('sesso'));
+            const profilo = parseInt(getVal('profilo'));
+            const rho_a = parseFloat(getVal('acqua'));
 
-            let h = h_cm / 100;
+            // Body fat
+            const BF = getVal('conosciBF') === 'si'
+                ? getNum('bfInput')
+                : calcolaBF(Mpers / (h * h), eta, sesso);
 
-            let BMI = Mpers / (h * h);
-            let conosciBF = document.getElementById("conosciBF").value;
-            let BF;
+            // Persona
+            const rho_pers = densitaPersona(Mpers, BF, sesso, profilo);
+            const Vpers = Mpers / rho_pers;
 
-            if (conosciBF === "si") {
-                BF = parseFloat(document.getElementById("bfInput").value);
-            } else {
-                BF = calcolaBF(BMI, eta, sesso);
-            }
+            // Muta
+            const rho_muta = getVal('conosciDensita') === 'si'
+                ? getNum('densitaMutaInput')
+                : (getVal('muta') === 'semistagna' ? 600 : 400);
 
-            let rho_pers = densitaPersona(Mpers, BF, sesso, profilo);
-            let Vpers = Mpers / rho_pers;
+            const Vmuta = calcolaVolumeMuta(Vpers, h);
+            const Mmuta = Vmuta * rho_muta;
 
-            let tipoMuta = document.getElementById("muta").value;
-            let conosci = document.getElementById("conosciDensita").value;
-            let rho_muta;
+            // Bombola + attrezzatura (solo ricreativa)
+            let Vbomb = 0, Mbomb = 0, Mattr = 0, Vattr = 0;
 
-            if (conosci === "si") {
-                rho_muta = parseFloat(document.getElementById("densitaMutaInput").value);
-            } else {
-                if (tipoMuta === "umida" || tipoMuta === "mutino") {
-                    rho_muta = 400;
-                } else if (tipoMuta === "semistagna") {
-                    rho_muta = 600;
+            if (getVal('tipoAttivita') === 'ricreativa') {
+                ({ Vbomb, Mbomb } = calcolaBombola(getVal('bombola')));
+
+                for (const a of ATTREZZATURA) {
+                    Mattr += a.massa;
+                    Vattr += a.massa / a.rho;
                 }
             }
 
-            let Vtorso = 0.5 * Vpers;
-            let Vbraccio = (0.1 * Vpers) / 2;
-            let Vgamba = (0.4 * Vpers) / 2;
+            // Zavorra
+            const Vtot = Vpers + Vmuta + Vbomb + Vattr;
+            const Mtot = Mpers + Mmuta + Mbomb + Mattr;
+            const Mp = (rho_a * Vtot - Mtot) / (1 - rho_a / RHO_PIOMBO);
 
-            let h_torso = 0.30 * h;
-            let h_braccio = 0.45 * h;
-            let h_gamba = 0.53 * h;
-
-            let r_torso = Math.sqrt(Vtorso / (Math.PI * h_torso));
-            let r_braccio = Math.sqrt(Vbraccio / (Math.PI * h_braccio));
-            let r_gamba = Math.sqrt(Vgamba / (Math.PI * h_gamba));
-
-            let A_torso = 2 * Math.PI * r_torso * h_torso;
-            let A_braccio = 2 * Math.PI * r_braccio * h_braccio;
-            let A_gamba = 2 * Math.PI * r_gamba * h_gamba;
-
-            let Vmuta = 0;
-
-            if (tipoMuta === "semistagna") {
-                let tipoSpessoreSemistagna = document.getElementById("tipoSpessoreSemistagna").value;
-
-                if (tipoSpessoreSemistagna === "omogeneo") {
-                    let t = parseFloat(document.getElementById("spessore").value) / 1000;
-                    Vmuta = (A_torso + 2 * A_braccio + 2 * A_gamba) * t;
-                } else {
-                    let tTorso = parseFloat(document.getElementById("spessoreTorsoSemi").value) / 1000;
-                    let tBraccia = parseFloat(document.getElementById("spessoreBracciaSemi").value) / 1000;
-                    let tGambe = parseFloat(document.getElementById("spessoreGambeSemi").value) / 1000;
-                    Vmuta = (A_torso * tTorso) + (2 * A_braccio * tBraccia) + (2 * A_gamba * tGambe);
-                }
-            } else if (tipoMuta === "mutino") {
-                let t = parseFloat(document.getElementById("spessore").value) / 1000;
-                Vmuta = (A_torso * t) +
-                    (2 * A_braccio * t * COEFF_BRACCIA_MUTINO) +
-                    (2 * A_gamba * t * COEFF_GAMBE_MUTINO);
-            } else {
-                let pezziMuta = document.getElementById("pezziMuta").value;
-
-                if (pezziMuta === "due") {
-                    let tgiacca = parseFloat(document.getElementById("spessoreArti").value) / 1000;
-                    let tsalopet = parseFloat(document.getElementById("spessoreTorso").value) / 1000;
-                    Vmuta = (A_torso * (tgiacca + tsalopet)) + (2 * A_braccio * tgiacca) + (2 * A_gamba * tsalopet);
-                } else {
-                    let t = parseFloat(document.getElementById("spessore").value) / 1000;
-                    Vmuta = (A_torso + (2 * A_braccio) + (2 * A_gamba)) * t;
-                }
-            }
-
-            let Mmuta = Vmuta * rho_muta;
-
-            let Vbomb = 0;
-            let Mbomb = 0;
-            let Mattr = 0;
-            let Vattr = 0;
-
-            if (tipoAttivita === "ricreativa") {
-                let bombSel = document.getElementById("bombola").value;
-                let bomb = bombole[bombSel];
-                let Mbomb_scarica = bomb.massa;
-                let litri = bomb.litri;
-                let rho_bomb = bomb.rho;
-
-                let Vint = litri / 1000;
-                let Vacc = Mbomb_scarica / rho_bomb;
-                Vbomb = Vint + Vacc;
-
-                let Pbomb = 22000000;
-                let R = 287;
-                let T = 303.15;
-                let Maria = (Vint * Pbomb) / (R * T);
-                Mbomb = Mbomb_scarica + Maria;
-
-                let massaGAV = 3.5;
-                let rho_gav = 1000;
-                let massaOctopus = 2.2;
-                let rho_octopus = 940;
-                let massaPinne = 2.5;
-                let rho_pinne = 1040;
-
-                Mattr = massaGAV + massaOctopus + massaPinne;
-                Vattr = (massaGAV / rho_gav) +
-                    (massaOctopus / rho_octopus) +
-                    (massaPinne / rho_pinne);
-            }
-
-            let num;
-            if (tipoAttivita === "apnea") {
-                num = rho_a * (Vpers + Vmuta) - (Mpers + Mmuta);
-            } else {
-                num = rho_a * (Vpers + Vmuta + Vbomb + Vattr) - (Mpers + Mmuta + Mbomb + Mattr);
-            }
-
-            let den = 1 - (rho_a / rho_piombo);
-            let Mp = num / den;
-
-            function arrotondaZavorra(valore) {
-                return Math.round(valore * 2) / 2;
-            }
-
-            let interpretazione = "";
-            let conclusione = "Prova il valore consigliato, se lo necessiti modifica partendo da questo valore.";
-
-            if (rho_pers > 995) {
+            // Interpretazione densità
+            let interpretazione;
+            if (rho_pers > 995)
                 interpretazione = "Tendi ad essere negativo: la tua densità corporea è relativamente alta e potresti richiedere poca zavorra.";
-            } else if (rho_pers < 975) {
+            else if (rho_pers < 975)
                 interpretazione = "Tendi ad essere positivo: la tua densità corporea è relativamente bassa e potresti richiedere più zavorra.";
-            } else {
+            else
                 interpretazione = "Tendi ad essere neutro: la tua corporatura e l'attrezzatura portano a una richiesta di zavorra intermedia.";
-            }
 
-            let Mp_approx = arrotondaZavorra(Mp);
+            const conclusione = "Prova il valore consigliato, se lo necessiti modifica partendo da questo valore.";
 
-            document.getElementById("risultatoZavorra").innerHTML =
-                "Zavorra calcolata: " + Mp.toFixed(2) + " kg<br><br>" +
-                "<span style='font-size:16px; font-weight:normal;'>" + interpretazione + "</span><br><br>" +
-                "Zavorra consigliata: " + Mp_approx.toFixed(1) + " kg<br><br>" +
-                "<span style='font-size:16px; font-weight:normal;'>" + conclusione + "</span>";
+            document.getElementById('risultatoZavorra').innerHTML =
+                `Zavorra calcolata: ${Mp.toFixed(2)} kg<br><br>` +
+                `<span style="font-size:16px; font-weight:normal;">${interpretazione}</span><br><br>` +
+                `Zavorra consigliata: ${arrotondaZavorra(Mp).toFixed(1)} kg<br><br>` +
+                `<span style="font-size:16px; font-weight:normal;">${conclusione}</span>`;
         }
-    </script>
 
+        // ─── INIT ─────────────────────────────────────────────────────────────────────
+        window.onload = function () {
+            onMutaChange();
+            toggleVisibility('densitaMutaBox', false);
+            onAttivitaChange();
+            toggleVisibility('bfInputBox', false);
+        };
+    </script>
 
 </body>
 
